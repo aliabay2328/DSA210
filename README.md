@@ -1,15 +1,24 @@
-# DSA210
-# Music Emotion Analysis Using Audio Features
+# DSA210 - Music Emotion Analysis Using Audio Features
 
-## Overview
-This project explores the relationship between audio features and the emotions conveyed by music. By analyzing songs using features like MFCCs, chroma, and tempo, the goal is to determine if certain musical characteristics correlate with specific emotions (e.g., happy, sad).
-
-## Motivation
-I have a passion for both music and data science. This project allows me to merge these interests by applying data science techniques to understand how musical elements contribute to emotional perception.
+## Project Overview
+This project explores the relationship between audio features and the emotions conveyed by music. By analyzing songs using extracted features such as **MFCCs, chroma, tempo, and harmonic relations**, the goal is to determine if musical characteristics correlate with specific emotions like happiness, sadness, or tension.
 
 ## Data Sources and Collection
-- **Data Source:** Public domain songs and manually curated song list with known emotional labels. Additionally, I will add short song examples composed and recorded by myself to add more variation to the data ( I will regularly compose and record music for more data)
-- **Collection Method:** Audio files (WAV/MP3) will be processed using Librosa to extract relevant features. General timbre of the sound, audial properties and the tonal/harmonic relations will be extracted via Libraso and manually by me if needed.
+- **Public Domain Music:** Songs from open datasets with existing emotion labels.  
+- **Self-Composed Music:** Additional short compositions recorded to increase dataset diversity.  
+- **Processing Method:** Audio files (WAV/MP3) will be analyzed using **Librosa** to extract relevant sound features. Harmonic and tonal structures will also be examined manually when needed.
 
+## Tools and Technologies
+- **Python** (for data processing and analysis)  
+- **Librosa** (feature extraction)  
+- **Pandas** (data organization)  
+- **Matplotlib & Seaborn** (visualization)  
+- **Scikit-learn** (basic classification models)  
+
+## Analysis Plan
+1. **Feature Extraction:** Process raw audio files and extract musical properties.  
+2. **Exploratory Data Analysis (EDA):** Identify trends and patterns in the extracted features.  
+3. **Classification:** Train a model to predict emotional categories based on music features.  
+4. **Evaluation:** Assess the model’s accuracy and interpret key results.  
 
 
