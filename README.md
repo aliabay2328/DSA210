@@ -54,7 +54,7 @@ Using **Librosa**, I plan to extract a variety of audio features, which may incl
 By combining these features—both automatically extracted and manually annotated—I aim to capture a comprehensive musical fingerprint for each track. These features will then be used to correlate with (or predict) the emotional labels assigned to the music.
 
 
-7.**Hypothesis:**
+## Hypothesis:
      -**Null Hypothesis:** Audio features do not have a correlation with the subjective emotions portrayed in music.
      -**Alternative Hypothesis:** Audio features do have a correlation with the emotive aspects of music.
 
