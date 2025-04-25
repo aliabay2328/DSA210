@@ -1,12 +1,12 @@
 # DSA210 - Music Emotion Analysis Using Audio Features
 
 ## Project Overview
-This project explores the relationship between audio features and the emotions conveyed by music. By analyzing songs using extracted features such as **MFCCs, chroma, tempo, and harmonic relations**, the goal is to determine if musical characteristics correlate with specific emotions like happiness, sadness, or tension.
+This project explores the relationship between audio features and the genres of music. By analyzing songs using extracted features such as **MFCCs, chroma, tempo, and harmonic relations**, the goal is to determine if musical characteristics correlate with specific genres.
 
 ## Data Sources and Collection
-- **Public Domain Music:** Songs from open datasets with existing emotion labels.  
+- **Public Domain Music:** Songs from open datasets with existing genre labels.  
 - **Self-Composed Music:** Additional short compositions recorded to increase dataset diversity.  
-- **Processing Method:** Audio files (WAV/MP3) will be analyzed using **Librosa** to extract relevant sound features. Harmonic and tonal structures (chord structure, major/minor) will be **examined manually** when needed.
+- **Processing Method:** Audio files (WAV/MP3) will be analyzed using **Librosa** to extract relevant sound features. 
 
 ## Tools and Technologies
 - **Python** (for data processing and analysis)  
@@ -45,16 +45,15 @@ Using **Librosa**, I plan to extract a variety of audio features, which may incl
    - **Tempo (BPM):** Estimated beats per minute from the audio.
    - **Onset Detection:** Identifies the start of musical notes/events.
 
-5. **(Manually Annotated) Main Chord Structure:**
-   - I will listen to each piece (or analyze its score if available) to note the primary chords or harmonic progressions by hand.
 
-6. **(Manually Annotated) Tonality (Minor/Major):**
+
+5. **(Manually Annotated) Tonality (Minor/Major):**
    - I will determine whether a piece is primarily in a major or minor key by examining its overall harmonic and melodic context.
 
-By combining these features—both automatically extracted and manually annotated—I aim to capture a comprehensive musical fingerprint for each track. These features will then be used to correlate with (or predict) the emotional labels assigned to the music.
+By combining these features I aim to capture a comprehensive musical fingerprint for each track. These features will then be used to correlate with (or predict) the genres assigned to the music.
 
 
 ## Hypothesis:
-     -**Null Hypothesis:** Audio features do not have a correlation with the subjective emotions portrayed in music.
-     -**Alternative Hypothesis:** Audio features do have a correlation with the emotive aspects of music.
+     -**Null Hypothesis:** Audio features do not have a correlation with the genre of music.
+     -**Alternative Hypothesis:** Audio features do have a correlation with the genre of music.
 
