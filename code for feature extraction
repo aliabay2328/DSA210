@@ -1,0 +1,62 @@
+
+import os
+import librosa
+import numpy as np
+import pandas as pd
+
+
+dataset_path = "/content/drive/My Drive/musicdataset"  
+
+
+csv_output_path = "/content/drive/My Drive/music_features.csv"
+
+#Feature Extraction Function
+def extract_features(file_path):
+    try:
+        y, sr = librosa.load(file_path, duration=30)  
+        tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
+        rms = np.mean(librosa.feature.rms(y=y))
+        spec_centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+        spec_bandwidth = np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
+        zcr = np.mean(librosa.feature.zero_crossing_rate(y=y))
+        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+        mfcc_means = np.mean(mfcc[:5], axis=1)  
+        chroma = np.mean(librosa.feature.chroma_stft(y=y, sr=sr))
+        contrast = np.mean(librosa.feature.spectral_contrast(y=y, sr=sr))
+        tonnetz = np.mean(librosa.feature.tonnetz(y=librosa.effects.harmonic(y), sr=sr))
+        onset = np.mean(librosa.onset.onset_strength(y=y, sr=sr))
+
+        return [
+            tempo, rms, spec_centroid, spec_bandwidth, zcr,
+            *mfcc_means, chroma, contrast, tonnetz, onset
+        ]
+    except Exception as e:
+        print(f"Failed on {file_path}: {e}")
+        return None
+
+data = []
+genres = [d for d in os.listdir(dataset_path) if os.path.isdir(os.path.join(dataset_path, d))]
+
+for genre in genres:
+    genre_path = os.path.join(dataset_path, genre)
+    print(f"Processing genre: {genre}")
+    for file_name in os.listdir(genre_path):
+        if not file_name.endswith('.mp3'):
+            continue
+        file_path = os.path.join(genre_path, file_name)
+        features = extract_features(file_path)
+        if features:
+            features.append(genre)  
+            data.append(features)
+
+columns = [
+    "tempo", "rms", "spectral_centroid", "spectral_bandwidth", "zcr",
+    "mfcc1", "mfcc2", "mfcc3", "mfcc4", "mfcc5",
+    "chroma", "contrast", "tonnetz", "onset", "genre"
+]
+
+df = pd.DataFrame(data, columns=columns)
+df.to_csv(csv_output_path, index=False)
+
+print(" Feature extraction complete. CSV saved at:")
+print(csv_output_path)
