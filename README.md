@@ -85,6 +85,7 @@ Observations:
 
 **RMS by Genre (Means):**  
 The average RMS of each genre; as expected, metal overall has the highest and classical has the lowest.
+Also it can be observed that electronic music seems to have a high variance in energy.
 
 ![Screenshot 2025-04-25 203057](https://github.com/user-attachments/assets/be84228d-aaca-4942-a807-1a0ae1a3d119)
 
@@ -96,6 +97,7 @@ Since it measures the center of energy in the sound, metal seems significantly h
 **Mean MFCC of Each Genre:**  
 The mean of the 5 MFCC coefficients, specifying the timbre of the sound.
 
+
 ![Screenshot 2025-04-25 205020](https://github.com/user-attachments/assets/a25e27f4-b37d-4e89-9bfd-d16486ace5de)
 
 **Mean Tempo by Genre:**  
@@ -105,6 +107,7 @@ There seem to be no significant differences in tempo between genres.
 
 **Mean Onset Strength by Genre:**  
 A measure of rhythmic properties. Electronic music has the most dominant rhythmic properties, with hip-hop and pop close behind.
+Also classical seems to be very significantly lower, which is again expected.
 
 ![Screenshot 2025-04-25 203229](https://github.com/user-attachments/assets/632d9806-746f-4be2-969d-6d65e178db3a)
 
