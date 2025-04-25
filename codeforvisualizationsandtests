@@ -1,0 +1,129 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from scipy.stats import ttest_ind, f_oneway
+
+df = pd.read_csv("/content/drive/My Drive/music_features.csv")
+
+# This part is here because there were entries where some numeric values werent written properly, we change them to numeric to continue.
+#I have used chat gpt for this line of code, ı prompted for a way to convert strings in the dataset to a numeric value.
+for col in df.columns:
+    if df[col].dtype == 'object' and col != 'genre':
+        try:
+            df[col] = df[col].apply(eval)
+            if df[col].apply(lambda x: isinstance(x, list)).any():
+                df[col] = df[col].apply(lambda x: x[0])
+        except:
+            continue
+
+# graph of rms for each genre
+plt.figure(figsize=(18, 8))
+sns.boxplot(data=df, x="genre", y="rms")
+plt.title("RMS Energy by Genre(Sonic Intensity/Energy)")
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(18, 8))
+sns.boxplot(data=df, x="genre", y="spectral_centroid")
+plt.title("Spectral Centroid by Genre(Brightness/Sharpness)")
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(18, 8))
+sns.barplot(data=df, x="genre", y="mfcc2", estimator="mean")
+plt.title("Mean MFCC2 by Genre(Timbre of the Sound)")
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(18, 8))
+sns.barplot(data=df, x="genre", y="tempo", estimator="mean")
+plt.title("Mean Tempo by Genre")
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(18, 8))
+sns.boxplot(data=df, x="genre", y="tonnetz")
+plt.title("Tonnetz by Genre(Harmonic Structure)")
+plt.xticks(rotation=45)
+plt.show()
+
+plt.figure(figsize=(18, 8))
+sns.barplot(data=df, x="genre", y="onset", estimator="mean")
+plt.title("Mean Onset Strength by Genre(Rythmic Properties)")
+plt.xticks(rotation=45)
+plt.show()
+
+#PCA analysis
+
+
+features = df.drop(columns=["genre"])
+labels = df["genre"]
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(features)
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+pca_df = pd.DataFrame(X_pca, columns=["PC1", "PC2"])
+pca_df["genre"] = labels
+
+plt.figure(figsize=(12, 8))
+sns.scatterplot(data=pca_df, x="PC1", y="PC2", hue="genre", s=80, alpha=0.8)
+plt.title("PCA of Audio Features by Genre")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.legend(loc='best', bbox_to_anchor=(1.05, 1))
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+
+loading_df = pd.DataFrame(
+    pca.components_,
+    columns=features.columns,
+    index=["PC1", "PC2"]
+)
+
+print(" components")
+print(loading_df.T.sort_values("PC1", ascending=False))
+
+# Summary Statistics
+print("\n General Summary Statistics:")
+print(df.describe())
+
+print("\n  Mean Feature Values by Genre:")
+print(df.groupby("genre").mean(numeric_only=True))
+metal_rms = df[df["genre"] == "metal"]["rms"]
+hiphop_rms = df[df["genre"] == "hip-hop"]["rms"]
+t_stat, p_val = ttest_ind(metal_rms, hiphop_rms, equal_var=False)
+print(f"1️ Metal vs HipHop (RMS Energy): t = {t_stat:.3f}, p = {p_val:.5f}")
+
+# Hypothesis 2: 
+classical_tonnetz = df[df["genre"] == "classical"]["tonnetz"]
+rock3_tonnetz = df[df["genre"] == "rock"]["tonnetz"]
+t_stat, p_val = ttest_ind(classical_tonnetz, rock3_tonnetz, equal_var=False)
+print(f"2️ Classical vs Rock (Tonnetz): t = {t_stat:.3f}, p = {p_val:.5f}")
+
+# Hypothesis 3: 
+electronic_onset = df[df["genre"] == "electronic"]["onset"]
+hiphop2_onset = df[df["genre"] == "hip-hop"]["onset"]
+t_stat, p_val = ttest_ind(electronic_onset, hiphop2_onset, equal_var=False)
+print(f"3️ Electronic vs Hip-Hop (Onset): t = {t_stat:.3f}, p = {p_val:.5f}")
+
+#hypo. test on the timbre of sound accross genres
+df["mfcc_avg"] = df[["mfcc1", "mfcc2", "mfcc3", "mfcc4", "mfcc5"]].mean(axis=1)
+groups = [df[df["genre"] == genre]["mfcc_avg"] for genre in df["genre"].unique()]
+f_stat, p_val = f_oneway(*groups)
+print(f"4️ MFCC Average (ANOVA): F = {f_stat:.3f}, p = {p_val:.100f}")
+plt.figure(figsize=(18, 8))
+sns.boxplot(data=df, x="genre", y="mfcc_avg")
+plt.title("Mean MFCC by Genre")
+
+plt.show()
