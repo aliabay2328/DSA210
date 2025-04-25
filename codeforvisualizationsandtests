@@ -1,7 +1,5 @@
 from google.colab import drive
 drive.mount('/content/drive')
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -127,3 +125,25 @@ sns.boxplot(data=df, x="genre", y="mfcc_avg")
 plt.title("Mean MFCC by Genre")
 
 plt.show()
+# Hypothesis 5: 
+
+
+from scipy.stats import pearsonr
+
+# Scatter plot
+plt.figure(figsize=(8,6))
+plt.scatter(df["onset"], df["tempo"], alpha=0.6)
+plt.xlabel("Onset Strength")
+plt.ylabel("Tempo (BPM)")
+plt.title("Scatter Plot of Onset Strength vs Tempo")
+plt.grid(True)
+plt.show()
+
+# Pearson correlation test
+corr_coef, p_value = pearsonr(df["onset"], df["tempo"])
+
+print("\n--- Hypothesis 5: ")
+print(f"Correlation coefficient: {corr_coef:.3f}")
+print(f"p-value: {p_value:.5f}")
+
+
