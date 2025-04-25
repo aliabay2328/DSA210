@@ -116,6 +116,11 @@ Tonnetz measures tonal shifts and complexity. As expected, classical and jazz mu
 
 ![Screenshot 2025-04-25 203215](https://github.com/user-attachments/assets/4cd5c59e-2bf6-41b4-8df9-937e2bbc5c26)
 
+**ScatterPlot of Onset Strenght and Tempo:**
+We may want to see the relationship between the rythmic properties and the tempo of a song.
+
+![Screenshot 2025-04-25 222725](https://github.com/user-attachments/assets/31cd8834-9c20-41ef-acfc-af84773f6e41)
+
 ---
 
 ## Hypothesis Testing
@@ -165,6 +170,17 @@ We tested this using **one-way ANOVA** on the `mfcc_avg` values:
 **Result:** We reject the null hypothesis. MFCCs are influenced by genre, meaning timbre varies significantly across styles.
 
 ---
+
+### Hypothesis 5:
+**Null Hypothesis:** There is no correlation between Onset Strength and Tempo.  
+**Alternative Hypothesis:** There is a significant correlation between Onset Strength and Tempo.
+
+We tested this using a **Pearson correlation test** between the `onset` and `tempo` features:
+
+- Correlation coefficient (r) = **-0.010**
+- p-value = **0.81000**
+
+**Result:** We fail to reject the null hypothesis. There is no statistically significant correlation between Onset Strength and Tempo.
 
 ## Conclusion
 
