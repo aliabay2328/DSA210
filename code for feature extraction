@@ -1,4 +1,5 @@
-
+from google.colab import drive
+drive.mount('/content/drive')
 import os
 import librosa
 import numpy as np
