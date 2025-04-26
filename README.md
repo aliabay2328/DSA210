@@ -1,4 +1,4 @@
-# DSA210 - Music Emotion Analysis Using Audio Features
+# DSA210 - Music  Analysis Using Audio Features
 
 ## Project Overview
 This project explores the relationship between audio features and the genres of music. By analyzing songs using extracted features such as **MFCCs, chroma, tempo, and harmonic relations**, the goal is to determine if musical characteristics correlate with specific genres.
