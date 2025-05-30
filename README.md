@@ -10,13 +10,13 @@ The project includes:
 - Supervised learning models (Decision Tree, kNN with feature ablation, Logistic Regression) for classification tasks.
 
 ## Files
-- `music_genre_classification.ipynb` — Main Jupyter notebook containing all code for feature analysis and model training.
+- `music_genre_classification.ipynb` — Main Jupyter notebook containing the final report and all code for feature analysis and model training.
 - `requirements.txt` — Python package dependencies.
 - `README.md` — Project description and setup instructions.
 - `music_features.csv` - Extracted features in csv format.
 
 ## Data
-The original feature extraction was performed on a dataset of approximately **500 songs**, which are not included here due to size. The extracted features are included. 
+The original feature extraction was performed on a dataset of approximately **500 songs**, which are not included here due to size. The extracted features are included in csv format. 
 
 
 
